@@ -1,0 +1,4 @@
+examples/tmp/*.*
+vendor
+.env
+.idea
