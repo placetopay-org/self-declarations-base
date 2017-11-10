@@ -79,8 +79,6 @@ abstract class ManagerLaravel implements RepositoryInterface, EventInterface
 
         $tag = $inTag ? $inTag : $this->tag();
 
-        ff(sprintf("cache()->tags('%s')->get('%s')\n%s", $tag, $key, print_r(Cache::tags($tag)->rememberForever($key, $value), true)));
-
         return Cache::tags($tag)->rememberForever($key, $value);
     }
 
@@ -101,11 +99,9 @@ abstract class ManagerLaravel implements RepositoryInterface, EventInterface
         $tag = $inTag ? $inTag : $this->tag();
 
         if (!is_null($key)) {
-//            ff(sprintf("cache()->tags('%s')->forget('%s')", $tag, $key));
             return Cache::tags($tag)->forget($key);
         }
 
-//        ff(sprintf("cache()->tags('%s')->flush()", $tag));
         return Cache::tags($tag)->flush();
     }
 

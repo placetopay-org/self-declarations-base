@@ -72,6 +72,5 @@ trait ManagerEventTrait
      */
     protected function cacheFlushRelated($entity)
     {
-        ff('Don\'t have cache related: ' . get_class($entity));
     }
 }
