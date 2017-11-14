@@ -292,20 +292,16 @@ abstract class ManagerLaravel implements RepositoryInterface, EventInterface
 
     public function update($id, array $attributes = [])
     {
-        // Only attributes to update
-        $entity = $this->entity()->load($attributes);
-        $entity->id($id);
+        $_old = $this->getById($id);
 
-        if (!$this->repository()->update($id, $entity->toArray(), 'toArray')) {
-            throw new ModelNotSavedException(__METHOD__, $entity);
+        if (!$this->repository()->update($id, $this->entity()->load($attributes)->toArray())) {
+            throw new ModelNotSavedException(__METHOD__, $attributes);
         }
 
-        // Load all values to cache clear
-        $entity = $this->getById($id);
+        // Need all values to clean cache
+        $this->updated($_old);
 
-        $this->updated($entity);
-
-        return $entity;
+        return $this->getById($id);
     }
 
     public function delete($id)
