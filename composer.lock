@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "9f06bbe07e5abbf3e16b81cfc455f3f0",
+    "content-hash": "c9754b1b74efe5cb881dca134a2e0604",
     "packages": [
         {
             "name": "doctrine/inflector",
@@ -568,7 +568,7 @@
         },
         {
             "name": "neomerx/json-api",
-            "version": "dev-master",
+            "version": "v1.0.7",
             "source": {
                 "type": "git",
                 "url": "https://github.com/neomerx/json-api.git",
@@ -619,7 +619,7 @@
                 "jsonapi.org",
                 "neomerx"
             ],
-            "time": "2017-10-27 07:09:38"
+            "time": "2017-10-27T07:09:38+00:00"
         },
         {
             "name": "nesbot/carbon",
@@ -1249,9 +1249,7 @@
     "packages-dev": [],
     "aliases": [],
     "minimum-stability": "dev",
-    "stability-flags": {
-        "neomerx/json-api": 20
-    },
+    "stability-flags": [],
     "prefer-stable": false,
     "prefer-lowest": false,
     "platform": {
