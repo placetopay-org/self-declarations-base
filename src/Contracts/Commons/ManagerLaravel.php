@@ -12,7 +12,6 @@ use FreddieGar\Base\Traits\RequestLaravelTrait;
 use Illuminate\Http\Request;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Cache;
-use Illuminate\Translation\Translator;
 
 /**
  * Class ManagerLaravel
@@ -45,16 +44,6 @@ abstract class ManagerLaravel implements RepositoryInterface, EventInterface
      * @var \Illuminate\Database\Eloquent\Builder
      */
     protected $query;
-
-    /**
-     * @var Translator
-     */
-    protected $translator;
-
-    public function __construct(Translator $translator)
-    {
-        $this->translator = $translator;
-    }
 
     final protected function tag()
     {
@@ -229,7 +218,7 @@ abstract class ManagerLaravel implements RepositoryInterface, EventInterface
         $entity = $this->entity()->load($attributes);
 
         if (!$merge = $this->repository()->create($entity->toArray())) {
-            throw new Exception($this->translator->trans('exceptions.model_not_saved'));
+            throw new Exception(trans('exceptions.model_not_saved'));
         }
 
         $entity = $entity->merge($merge);
@@ -259,7 +248,7 @@ abstract class ManagerLaravel implements RepositoryInterface, EventInterface
         $_old = $this->getById($id);
 
         if (!$this->repository()->update($id, $this->entity()->load($attributes)->toArray())) {
-            throw new Exception($this->translator->trans(('exceptions.model_not_saved')));
+            throw new Exception(trans(('exceptions.model_not_saved')));
         }
 
         // Need all values to clean cache

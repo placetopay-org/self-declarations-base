@@ -21,20 +21,13 @@ class ThrottleRequestMiddleware
     protected $limiter;
 
     /**
-     * @var Translator
-     */
-    protected $translator;
-
-    /**
      * Create a new request throttler.
      *
      * @param  RateLimiter $limiter
-     * @param  Translator $translator
      */
-    public function __construct(RateLimiter $limiter, Translator $translator)
+    public function __construct(RateLimiter $limiter)
     {
         $this->limiter = $limiter;
-        $this->translator = $translator;
     }
 
     /**
@@ -89,7 +82,7 @@ class ThrottleRequestMiddleware
     protected function buildResponse($key, $maxAttempts)
     {
         $retryAfter = $this->limiter->availableIn($key);
-        $message = $this->translator->trans('exceptions.max_attempts', ['seconds' => $retryAfter]);
+        $message = trans('exceptions.max_attempts', ['seconds' => $retryAfter]);
 
         $response = [
             'status' => Response::HTTP_TOO_MANY_REQUESTS,
