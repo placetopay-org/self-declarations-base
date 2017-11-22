@@ -4,7 +4,6 @@ namespace FreddieGar\Base\Contracts\Commons;
 
 use FreddieGar\Base\Constants\HttpMethod;
 use FreddieGar\Base\Constants\JsonApiName;
-use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\Request;
 use Laravel\Lumen\Routing\ProvidesConvenienceMethods;
 use Neomerx\JsonApi\Encoder\Encoder;
@@ -140,7 +139,7 @@ abstract class ManagerJsonApi
     }
 
     /**
-     * Remove rules to fieds that are not in request
+     * Remove rules to fields that are not in request
      * @param $rules
      * @return mixed
      */
@@ -232,9 +231,10 @@ abstract class ManagerJsonApi
     /**
      * @param string $relationship
      * @param array $arguments
+     * @throws \Exception
      */
     public function __call($relationship, array $arguments = [])
     {
-        throw new ModelNotFoundException(trans('exceptions.relationship_not_found', compact('relationship')));
+        throw new \Exception(trans('exceptions.relationship_not_found', compact('relationship')));
     }
 }

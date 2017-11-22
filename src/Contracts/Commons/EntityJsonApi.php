@@ -28,7 +28,7 @@ abstract class EntityJsonApi implements BlameColumnInterface
      * This fields are exclude from toArray method
      * return array
      */
-    protected function hiddens()
+    protected function hidden()
     {
         return [];
     }

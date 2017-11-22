@@ -2,7 +2,6 @@
 
 namespace FreddieGar\Base\Traits;
 
-use App\Entities\UserEntity;
 use FreddieGar\Base\Constants\FilterType;
 use FreddieGar\Base\Constants\OperatorType;
 use FreddieGar\Base\Constants\Pattern;
@@ -10,6 +9,7 @@ use Carbon\Carbon;
 
 /**
  * Trait FilterTrait
+ * @mixin RequestLaravelTrait
  * @package FreddieGar\Base\Traits
  */
 trait FilterTrait
@@ -62,35 +62,6 @@ trait FilterTrait
     protected function setFilterToApply(array $filter, $value, $whereType = 'where', $operator = null)
     {
         $operator = $operator ?: OperatorType::EQUALS;
-//        if (!is_null($filter->morphs)) {
-//            $model = $this->model;
-//            $morphsTypes = $filter->morphs['types'];
-//            $column = $filter->morphs['column'];
-//
-//            foreach ($morphsTypes as $morphType) {
-//                $this->query->orWhere(function ($query) use (
-//                    $morphType,
-//                    $filter,
-//                    $value,
-//                    $operator,
-//                    $model,
-//                    $column
-//                ) {
-//                    $relatedIds = $morphType::where($filter['field'], $operator, $value)
-//                        ->select($column)
-//                        ->get()
-//                        ->map(function ($information) use ($column) {
-//                            return $information->{$column};
-//                        })
-//                        ->toArray();
-//
-//                    $query->whereIn($model::morphColumnId(), $relatedIds)
-//                        ->where($model::morphColumnType(), $morphType);
-//                });
-//            }
-//
-//            return true;
-//        }
 
 //        if (strpos($filter['field'], self::$FILTER_SEPARATOR) !== false) {
 //            $explode = explode(self::$FILTER_SEPARATOR, $filter['field']);
@@ -142,10 +113,6 @@ trait FilterTrait
         foreach (static::filters() as $field => $filter) {
             self::applyFilter(array_merge(compact('field'), $filter));
         }
-
-//        if (count($this->requestExcept([UserEntity::KEY_API_TOKEN])) > 0 && count($this->filterToApply()) === 0) {
-//            $this->setFilterInvalid();
-//        }
 
         return $this;
     }

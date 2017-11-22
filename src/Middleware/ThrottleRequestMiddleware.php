@@ -1,9 +1,10 @@
 <?php
 
-namespace FreddieGar\Base\Middlewares;
+namespace FreddieGar\Base\Middleware;
 
 use Closure;
 use Illuminate\Cache\RateLimiter;
+use Illuminate\Translation\Translator;
 use Symfony\Component\HttpFoundation\Response;
 
 /**
@@ -15,18 +16,25 @@ class ThrottleRequestMiddleware
     /**
      * The rate limiter instance.
      *
-     * @var \Illuminate\Cache\RateLimiter
+     * @var RateLimiter
      */
     protected $limiter;
 
     /**
+     * @var Translator
+     */
+    protected $translator;
+
+    /**
      * Create a new request throttler.
      *
-     * @param  \Illuminate\Cache\RateLimiter $limiter
+     * @param  RateLimiter $limiter
+     * @param  Translator $translator
      */
-    public function __construct(RateLimiter $limiter)
+    public function __construct(RateLimiter $limiter, Translator $translator)
     {
         $this->limiter = $limiter;
+        $this->translator = $translator;
     }
 
     /**
@@ -81,7 +89,7 @@ class ThrottleRequestMiddleware
     protected function buildResponse($key, $maxAttempts)
     {
         $retryAfter = $this->limiter->availableIn($key);
-        $message = trans('exceptions.max_attempts', ['seconds' => $retryAfter]);
+        $message = $this->translator->trans('exceptions.max_attempts', ['seconds' => $retryAfter]);
 
         $response = [
             'status' => Response::HTTP_TOO_MANY_REQUESTS,

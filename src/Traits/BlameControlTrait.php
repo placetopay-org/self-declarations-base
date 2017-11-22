@@ -192,6 +192,7 @@ trait BlameControlTrait
 
     /**
      * Disable save created by column
+     * @param null $forever
      * @return void
      */
     final static public function disableCreatedBy($forever = null)

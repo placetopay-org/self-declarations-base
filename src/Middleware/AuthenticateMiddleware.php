@@ -1,10 +1,11 @@
 <?php
 
-namespace FreddieGar\Base\Middlewares;
+namespace FreddieGar\Base\Middleware;
 
 use Closure;
 use Illuminate\Contracts\Auth\Factory as Auth;
 use Illuminate\Http\Response;
+use Illuminate\Translation\Translator;
 use Illuminate\Validation\UnauthorizedException;
 
 /**
@@ -21,14 +22,20 @@ class AuthenticateMiddleware
     protected $auth;
 
     /**
+     * @var Translator
+     */
+    protected $translator;
+
+    /**
      * Create a new middleware instance.
      *
      * Authenticate constructor.
      * @param Auth $auth
      */
-    public function __construct(Auth $auth)
+    public function __construct(Auth $auth, Translator $translator)
     {
         $this->auth = $auth;
+        $this->translator= $translator;
     }
 
     /**
@@ -42,7 +49,7 @@ class AuthenticateMiddleware
     public function handle($request, Closure $next, $guard = null)
     {
         if ($this->auth->guard($guard)->guest()) {
-            throw new UnauthorizedException(trans('exceptions.credentials'), Response::HTTP_UNAUTHORIZED);
+            throw new UnauthorizedException($this->translator->trans('exceptions.credentials'), Response::HTTP_UNAUTHORIZED);
         }
 
         return $next($request);

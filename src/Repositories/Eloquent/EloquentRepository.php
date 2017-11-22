@@ -11,17 +11,30 @@ use Illuminate\Database\Eloquent\Model;
  */
 abstract class EloquentRepository implements RepositoryInterface
 {
+    /**
+     * @param array $attributes
+     * @return array
+     */
     public function create(array $attributes = [])
     {
 
         return $this->model->create($attributes)->attributesToArray();
     }
 
+    /**
+     * @param int $id
+     * @param array $attributes
+     * @return bool
+     */
     public function update($id, array $attributes = [])
     {
         return $this->model->findOrFail($id)->update($attributes);
     }
 
+    /**
+     * @param int $id
+     * @return bool|null
+     */
     public function delete($id)
     {
         return $this->model->findOrFail($id)->delete();
@@ -45,11 +58,19 @@ abstract class EloquentRepository implements RepositoryInterface
         return $this->model->findOrFail($id)->toArray();
     }
 
+    /**
+     * @return Builder|\Illuminate\Database\Query\Builder
+     */
     public function query()
     {
         return $this->model->newQuery();
     }
 
+    /**
+     * @param $id
+     * @param \Closure $value
+     * @return bool
+     */
     public function haveInformationRelated($id, $value = null)
     {
         // By default entity dont have information related

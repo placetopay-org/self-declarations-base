@@ -3,7 +3,14 @@
     "description": "Manage layers in Laravel",
     "type": "library",
     "require": {
-        "php": ">=5.6"
+        "php": ">=5.6",
+        "illuminate/support": "v5.3.23",
+        "illuminate/http": "v5.3.23",
+        "illuminate/cache": "v5.3.23",
+        "illuminate/database": "v5.3.23",
+        "illuminate/translation": "v5.3.23",
+        "illuminate/validation": "v5.3.23",
+        "neomerx/json-api": "dev-master"
     },
     "autoload": {
         "files": [

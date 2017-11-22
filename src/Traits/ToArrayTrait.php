@@ -4,6 +4,7 @@ namespace FreddieGar\Base\Traits;
 
 /**
  * Trait ToArrayTrait
+ * @mixin LoaderTrait
  * @package FreddieGar\Base\Traits
  */
 trait ToArrayTrait

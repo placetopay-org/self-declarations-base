@@ -3,15 +3,16 @@
 namespace FreddieGar\Base\Contracts\Commons;
 
 use App\Constants\CacheKey;
-use App\Entities\TranslationEntity;
-use App\Exceptions\ModelNotSavedException;
+use Exception;
 use FreddieGar\Base\Contracts\Interfaces\EventInterface;
 use FreddieGar\Base\Contracts\Interfaces\RepositoryInterface;
 use FreddieGar\Base\Repositories\Eloquent\EloquentRepository;
 use FreddieGar\Base\Traits\ManagerEventTrait;
-use Illuminate\Database\Eloquent\Collection;
+use FreddieGar\Base\Traits\RequestLaravelTrait;
 use Illuminate\Http\Request;
+use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Cache;
+use Illuminate\Translation\Translator;
 
 /**
  * Class ManagerLaravel
@@ -23,6 +24,7 @@ use Illuminate\Support\Facades\Cache;
 abstract class ManagerLaravel implements RepositoryInterface, EventInterface
 {
     use ManagerEventTrait;
+    use RequestLaravelTrait;
 
     /**
      * @var Request
@@ -39,15 +41,20 @@ abstract class ManagerLaravel implements RepositoryInterface, EventInterface
      */
     protected $entity;
 
-//    /**
-//     * @var mixed
-//     */
-//    protected $temporalEntity;
-
     /**
      * @var \Illuminate\Database\Eloquent\Builder
      */
     protected $query;
+
+    /**
+     * @var Translator
+     */
+    protected $translator;
+
+    public function __construct(Translator $translator)
+    {
+        $this->translator = $translator;
+    }
 
     final protected function tag()
     {
@@ -154,49 +161,6 @@ abstract class ManagerLaravel implements RepositoryInterface, EventInterface
     }
 
     /**
-     * @param string $name
-     * @param mixed $default
-     * @return mixed
-     */
-    final protected function requestAttribute($name = null, $default = null)
-    {
-        $attributes = $name
-            ? $this->request()->input($name, $default)
-            : $this->request()->input();
-
-        return $attributes ?: [];
-    }
-
-    /**
-     * @param $name
-     * @param null $default
-     * @return mixed
-     */
-    final protected function requestFilter($name, $default = null)
-    {
-        return $this->request()->input($name, $default);
-    }
-
-    /**
-     * @param array $keys
-     * @return array
-     */
-    final protected function requestExcept(array $keys = [])
-    {
-        return $this->request()->except($keys);
-    }
-
-    /**
-     * @param string $name
-     * @param mixed $value
-     * @return void
-     */
-    final protected function requestAddFilter($name, $value = null)
-    {
-        $this->request()->merge([$name => $value]);
-    }
-
-    /**
      * @param mixed $repository
      * @return $this|EloquentRepository
      */
@@ -265,7 +229,7 @@ abstract class ManagerLaravel implements RepositoryInterface, EventInterface
         $entity = $this->entity()->load($attributes);
 
         if (!$merge = $this->repository()->create($entity->toArray())) {
-            throw new ModelNotSavedException(__METHOD__, $entity);
+            throw new Exception($this->translator->trans('exceptions.model_not_saved'));
         }
 
         $entity = $entity->merge($merge);
@@ -295,7 +259,7 @@ abstract class ManagerLaravel implements RepositoryInterface, EventInterface
         $_old = $this->getById($id);
 
         if (!$this->repository()->update($id, $this->entity()->load($attributes)->toArray())) {
-            throw new ModelNotSavedException(__METHOD__, $attributes);
+            throw new Exception($this->translator->trans(('exceptions.model_not_saved')));
         }
 
         // Need all values to clean cache
@@ -325,38 +289,6 @@ abstract class ManagerLaravel implements RepositoryInterface, EventInterface
 
         return $deleteRows;
     }
-
-//    public function ______fill(array $attributes = [], $id = null)
-//    {
-//        $this->temporalEntity = $this->entity()->load($attributes, true);
-//        if (!is_null($id)) {
-//            $this->temporalEntity->id($id);
-//        }
-//
-//        return $this;
-//    }
-//
-//    public function ________save()
-//    {
-//        if (is_null($this->temporalEntity)) {
-//            throw new \Exception('Entity is empty, impossible save it.');
-//        }
-//
-//        try {
-//            $id = $this->temporalEntity->id();
-//            $attributes = $this->temporalEntity->toArray();
-//
-//            unset($this->temporalEntity);
-//
-//            if (is_numeric($id)) {
-//                return self::update($id, $attributes);
-//            } else {
-//                return self::create($attributes);
-//            }
-//        } catch (\Exception $e) {
-//            return false;
-//        }
-//    }
 
     /**
      * @param array $columns

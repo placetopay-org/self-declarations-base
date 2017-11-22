@@ -2,7 +2,6 @@
 
 namespace FreddieGar\Base\Contracts\Commons;
 
-use FreddieGar\Base\Constants\BlameColumn;
 use FreddieGar\Base\Contracts\Interfaces\BlameColumnInterface;
 use FreddieGar\Base\Traits\BlameColumnsTrait;
 use FreddieGar\Base\Traits\DirTyTrait;
@@ -68,6 +67,7 @@ abstract class EntityLaravel implements BlameColumnInterface
     /**
      * @param $name
      * @param $value
+     * @return $this
      */
     public function __set($name, $value)
     {

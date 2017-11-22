@@ -219,7 +219,7 @@ if (!function_exists('responseJsonApi')) {
     {
         $status = is_null($content) ? \Illuminate\Http\Response::HTTP_NO_CONTENT : $status;
         $headers = array_merge([
-            'Content-Type' => \FreddieGar\Base\Middlewares\SupportedMediaTypeMiddleware::MEDIA_TYPE_SUPPORTED
+            'Content-Type' => \FreddieGar\Base\Middleware\SupportedMediaTypeMiddleware::MEDIA_TYPE_SUPPORTED
         ], $headers);
 
         return response($content, $status, $headers);
