@@ -42,11 +42,4 @@ interface RepositoryInterface
      * @return Builder
      */
     public function query();
-
-    /**
-     * @param $id
-     * @param \Closure $value
-     * @return bool
-     */
-    public function haveInformationRelated($id, $value = null);
 }

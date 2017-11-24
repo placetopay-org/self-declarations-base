@@ -17,12 +17,21 @@ trait LoaderTrait
     {
         static $entity;
         $entity = ($newEntity) ? new static() : $entity ?: new static();
+        $entity = new static();
         $fields = array_merge($entity->fields(), ['dummy']);
+        $appends = $entity->appends();
 
         foreach ($attributes as $attribute => $value) {
             if (in_array($attribute, $fields)) {
                 $setter = setter($attribute);
                 method_exists($entity, $setter) ? $entity->{$setter}($value) : $entity->{$attribute} = $value;
+            }
+        }
+
+        foreach ($appends as $append) {
+            $getter = getter($append);
+            if (method_exists($entity, $getter)) {
+                $entity->{$append} = $entity->{$getter}();
             }
         }
 

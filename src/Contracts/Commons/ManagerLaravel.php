@@ -45,11 +45,17 @@ abstract class ManagerLaravel implements RepositoryInterface, EventInterface
      */
     protected $query;
 
+    /**
+     * @return string
+     */
     final protected function tag()
     {
         return get_class($this->entity());
     }
 
+    /**
+     * @return string
+     */
     final protected function key()
     {
         $keys = func_num_args() > 1 ? func_get_args() : func_get_arg(0);
@@ -64,9 +70,14 @@ abstract class ManagerLaravel implements RepositoryInterface, EventInterface
         }
 
         return $keys;
-
     }
 
+    /**
+     * @param $key
+     * @param \Closure $value
+     * @param null $inTag
+     * @return mixed
+     */
     final protected function cache($key, \Closure $value, $inTag = null)
     {
         if (is_array($key)) {
@@ -78,6 +89,12 @@ abstract class ManagerLaravel implements RepositoryInterface, EventInterface
         return Cache::tags($tag)->rememberForever($key, $value);
     }
 
+    /**
+     * @param $group
+     * @param $key
+     * @param \Closure $value
+     * @return mixed
+     */
     final protected function cacheByGroup($group, $key, \Closure $value)
     {
         $tag = self::key($this->tag(), $group);
@@ -85,11 +102,21 @@ abstract class ManagerLaravel implements RepositoryInterface, EventInterface
         return self::cache($key, $value, $tag);
     }
 
+    /**
+     * @param $key
+     * @param \Closure $value
+     * @return mixed
+     */
     final protected function cacheSelectList($key, \Closure $value)
     {
         return self::cacheByGroup(CacheKey::TAG_SELECT_LIST, $key, $value);
     }
 
+    /**
+     * @param null $key
+     * @param null $inTag
+     * @return mixed
+     */
     final protected function cacheFlush($key = null, $inTag = null)
     {
         $tag = $inTag ? $inTag : $this->tag();
@@ -101,6 +128,12 @@ abstract class ManagerLaravel implements RepositoryInterface, EventInterface
         return Cache::tags($tag)->flush();
     }
 
+    /**
+     * @param $group
+     * @param null $key
+     * @param null $inTag
+     * @return mixed
+     */
     final protected function cacheFlushByGroup($group, $key = null, $inTag = null)
     {
         $tag = $inTag ? self::key($inTag, $group) : self::key($this->tag(), $group);
@@ -108,6 +141,9 @@ abstract class ManagerLaravel implements RepositoryInterface, EventInterface
         return self::cacheFlush($key, $tag);
     }
 
+    /**
+     * @return mixed
+     */
     final protected function cacheFlushSelectList()
     {
         return self::cacheFlushByGroup(CacheKey::TAG_SELECT_LIST);
@@ -213,6 +249,11 @@ abstract class ManagerLaravel implements RepositoryInterface, EventInterface
         return !isset($attributes['id']) ? collect($this->entity()->loadMultiple($attributes)) : $this->entity()->load($attributes);
     }
 
+    /**
+     * @param array $attributes
+     * @return EntityLaravel
+     * @throws Exception
+     */
     public function create(array $attributes = [])
     {
         $entity = $this->entity()->load($attributes);
@@ -243,6 +284,12 @@ abstract class ManagerLaravel implements RepositoryInterface, EventInterface
         return collect($instances);
     }
 
+    /**
+     * @param int $id
+     * @param array $attributes
+     * @return EntityLaravel
+     * @throws Exception
+     */
     public function update($id, array $attributes = [])
     {
         $_old = $this->getById($id);
@@ -257,6 +304,10 @@ abstract class ManagerLaravel implements RepositoryInterface, EventInterface
         return $this->getById($id);
     }
 
+    /**
+     * @param int $id
+     * @return int
+     */
     public function delete($id)
     {
         if (is_null($id)) {
@@ -268,6 +319,10 @@ abstract class ManagerLaravel implements RepositoryInterface, EventInterface
         return $this->repository()->delete($id);
     }
 
+    /**
+     * @param array ...$ids
+     * @return int
+     */
     public function deleteMany(...$ids)
     {
         $deleteRows = 0;
@@ -290,21 +345,14 @@ abstract class ManagerLaravel implements RepositoryInterface, EventInterface
         });
     }
 
+    /**
+     * @param int $id
+     * @return mixed
+     */
     public function getById($id)
     {
         return self::cache($id, function () use ($id) {
             return $this->response($this->repository()->getById($id));
         });
-    }
-
-    public function haveInformationRelated($id, $value = null)
-    {
-        if (is_null($value)) {
-            $value = function () use ($id) {
-                return $this->repository()->haveInformationRelated($id);
-            };
-        }
-
-        return self::cache(self::key(CacheKey::HAVE_INFORMATION_RELATED, $id), $value);
     }
 }

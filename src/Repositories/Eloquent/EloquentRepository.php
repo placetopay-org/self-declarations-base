@@ -17,7 +17,6 @@ abstract class EloquentRepository implements RepositoryInterface
      */
     public function create(array $attributes = [])
     {
-
         return $this->model->create($attributes)->attributesToArray();
     }
 
@@ -33,7 +32,7 @@ abstract class EloquentRepository implements RepositoryInterface
 
     /**
      * @param int $id
-     * @return bool|null
+     * @return int
      */
     public function delete($id)
     {
@@ -64,16 +63,5 @@ abstract class EloquentRepository implements RepositoryInterface
     public function query()
     {
         return $this->model->newQuery();
-    }
-
-    /**
-     * @param $id
-     * @param \Closure $value
-     * @return bool
-     */
-    public function haveInformationRelated($id, $value = null)
-    {
-        // By default entity dont have information related
-        return false;
     }
 }

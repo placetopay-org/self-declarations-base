@@ -2,6 +2,7 @@
 
 namespace FreddieGar\Base\Contracts\Commons;
 
+use FreddieGar\Base\Constants\BlameColumn;
 use FreddieGar\Base\Contracts\Interfaces\BlameColumnInterface;
 use FreddieGar\Base\Traits\BlameColumnsTrait;
 use FreddieGar\Base\Traits\DirTyTrait;
@@ -39,30 +40,37 @@ abstract class EntityLaravel implements BlameColumnInterface
         return [];
     }
 
-//    /**
-//     * This fields are append to entity
-//     * return array
-//     */
-//    protected function appends()
-//    {
-//        return [];
-//    }
+    /**
+     * This fields are append to entity
+     * return array
+     */
+    protected function appends()
+    {
+        return [];
+    }
 
     /**
      * This fields are exclude from toArray method
      * return array
      */
-//    protected function blames()
-//    {
-//        return [
-//            BlameColumn::CREATED_BY,
-//            BlameColumn::UPDATED_BY,
-//            BlameColumn::DELETED_BY,
-//            BlameColumn::CREATED_AT,
-//            BlameColumn::UPDATED_AT,
-//            BlameColumn::DELETED_AT,
-//        ];
-//    }
+    protected function blames()
+    {
+        return [
+            BlameColumn::CREATED_BY,
+            BlameColumn::UPDATED_BY,
+            BlameColumn::DELETED_BY,
+            BlameColumn::CREATED_AT,
+            BlameColumn::UPDATED_AT,
+            BlameColumn::DELETED_AT,
+        ];
+    }
+
+    /**
+     * @return bool
+     */
+    public function haveInformationRelated(){
+        return false;
+    }
 
     /**
      * @param $name
