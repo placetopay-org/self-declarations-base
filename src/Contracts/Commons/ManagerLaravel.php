@@ -251,7 +251,7 @@ abstract class ManagerLaravel implements RepositoryInterface, EventInterface
 
     /**
      * @param array $attributes
-     * @return EntityLaravel
+     * @return EntityLaravel|mixed
      * @throws Exception
      */
     public function create(array $attributes = [])
@@ -287,7 +287,7 @@ abstract class ManagerLaravel implements RepositoryInterface, EventInterface
     /**
      * @param int $id
      * @param array $attributes
-     * @return EntityLaravel
+     * @return EntityLaravel|mixed
      * @throws Exception
      */
     public function update($id, array $attributes = [])
