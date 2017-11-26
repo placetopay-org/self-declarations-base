@@ -233,7 +233,7 @@ abstract class ManagerLaravel implements RepositoryInterface, EventInterface
      */
     public function __call($method, $parameters)
     {
-        die("Method [$method] must be implemented in " . static::class);
+        throw new Exception("Method [$method] must be implemented in " . static::class);
     }
 
     /**

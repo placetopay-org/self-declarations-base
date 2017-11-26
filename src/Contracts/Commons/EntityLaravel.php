@@ -68,7 +68,8 @@ abstract class EntityLaravel implements BlameColumnInterface
     /**
      * @return bool
      */
-    public function haveInformationRelated(){
+    public function haveInformationRelated()
+    {
         return false;
     }
 
