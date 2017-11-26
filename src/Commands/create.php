@@ -603,7 +603,7 @@ class {$setup['controller']['name']} extends Controller
     {
         \$this->setActionDeleting();
 
-        if (\$this->manager()->haveInformationRelated(\$id) || !\$this->manager()->delete(\$id)) {
+        if (\$this->manager()->getById(\$id)->haveInformationRelated() || !\$this->manager()->delete(\$id)) {
             \$this->logActionFailed();
 
             return \$this->redirectToWarning();
