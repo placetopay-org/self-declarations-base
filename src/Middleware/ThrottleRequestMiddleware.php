@@ -4,7 +4,6 @@ namespace FreddieGar\Base\Middleware;
 
 use Closure;
 use Illuminate\Cache\RateLimiter;
-use Illuminate\Translation\Translator;
 use Symfony\Component\HttpFoundation\Response;
 
 /**

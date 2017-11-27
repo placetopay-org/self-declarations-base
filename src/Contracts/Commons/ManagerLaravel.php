@@ -2,8 +2,8 @@
 
 namespace FreddieGar\Base\Contracts\Commons;
 
-use App\Constants\CacheKey;
 use Exception;
+use FreddieGar\Base\Constants\CacheKey;
 use FreddieGar\Base\Contracts\Interfaces\EventInterface;
 use FreddieGar\Base\Contracts\Interfaces\RepositoryInterface;
 use FreddieGar\Base\Repositories\Eloquent\EloquentRepository;
@@ -109,7 +109,7 @@ abstract class ManagerLaravel implements RepositoryInterface, EventInterface
      */
     final protected function cacheSelectList($key, \Closure $value)
     {
-        return self::cacheByGroup(CacheKey::TAG_SELECT_LIST, $key, $value);
+        return self::cacheByGroup(CacheKey::SELECT_LIST, $key, $value);
     }
 
     /**
@@ -146,7 +146,7 @@ abstract class ManagerLaravel implements RepositoryInterface, EventInterface
      */
     final protected function cacheFlushSelectList()
     {
-        return self::cacheFlushByGroup(CacheKey::TAG_SELECT_LIST);
+        return self::cacheFlushByGroup(CacheKey::SELECT_LIST);
     }
 
     /**
@@ -230,6 +230,7 @@ abstract class ManagerLaravel implements RepositoryInterface, EventInterface
      * @param $method
      * @param $parameters
      * @return array|static
+     * @throws Exception
      */
     public function __call($method, $parameters)
     {
