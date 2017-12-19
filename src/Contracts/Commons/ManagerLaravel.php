@@ -12,6 +12,7 @@ use FreddieGar\Base\Traits\RequestLaravelTrait;
 use Illuminate\Http\Request;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Cache;
+use function Symfony\Component\HttpKernel\Tests\controller_func;
 
 /**
  * Class ManagerLaravel
@@ -86,7 +87,7 @@ abstract class ManagerLaravel implements RepositoryInterface, EventInterface
 
         $tag = $inTag ? $inTag : $this->tag();
 
-        return Cache::tags($tag)->rememberForever($key, $value);
+        return env('APP_USE_CACHE', true) ? Cache::tags($tag)->rememberForever($key, $value) : $value();
     }
 
     /**

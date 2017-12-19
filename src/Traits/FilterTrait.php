@@ -63,23 +63,6 @@ trait FilterTrait
     {
         $operator = $operator ?: OperatorType::EQUALS;
 
-//        if (strpos($filter['field'], self::$FILTER_SEPARATOR) !== false) {
-//            $explode = explode(self::$FILTER_SEPARATOR, $filter['field']);
-//
-//             For instance: bidder.email
-//            $relation = $explode[0]; // bidder
-//            $column = $explode[1]; // email
-//
-//             El filtro es alternativo en la consulta global, es decir: or
-//            $whereType = ($this->existSmartSearch()) ? 'whereHas' : 'orWhereHas';
-//            $this->query->{$whereType}($relation, function ($query) use ($column, $value, $operator) {
-//                 El filtro es complementario dentro de la consulta, es decir: and
-//                $query->where($column, $operator, $value);
-//            });
-//
-//            return true;
-//        }
-
         if (!empty($value)) {
             $this->filtersToApply[][$whereType] = sprintf('%s|%s|%s', $filter['field'], $operator, $value);
             return $this;
