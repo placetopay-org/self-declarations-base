@@ -258,13 +258,11 @@ abstract class ManagerLaravel implements RepositoryInterface, EventInterface
      */
     public function create(array $attributes = [])
     {
-        $entity = $this->entity()->load($attributes);
-
-        if (!$merge = $this->repository()->create($entity->toArray())) {
+        if (!$_new = $this->repository()->create($this->entity()->load($attributes)->toArray())) {
             throw new Exception(trans('exceptions.model_not_saved'));
         }
 
-        $entity = $entity->merge($merge);
+        $entity = $this->getById($_new['id']);
 
         $this->created($entity);
 
