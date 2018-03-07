@@ -4,12 +4,12 @@
     "type": "library",
     "require": {
         "php": ">=5.6",
-        "illuminate/support": "v5.*",
-        "illuminate/http": "v5.*",
-        "illuminate/cache": "v5.*",
-        "illuminate/database": "v5.*",
-        "illuminate/translation": "v5.*",
-        "illuminate/validation": "v5.*",
+        "illuminate/support": "5.3.*|5.4.*|5.5.*|5.6.*",
+        "illuminate/http": "5.3.*|5.4.*|5.5.*|5.6.*",
+        "illuminate/cache": "5.3.*|5.4.*|5.5.*|5.6.*",
+        "illuminate/database": "5.3.*|5.4.*|5.5.*|5.6.*",
+        "illuminate/translation": "5.3.*|5.4.*|5.5.*|5.6.*",
+        "illuminate/validation": "5.3.*|5.4.*|5.5.*|5.6.*",
         "neomerx/json-api": "v1.0.*"
     },
     "autoload": {
