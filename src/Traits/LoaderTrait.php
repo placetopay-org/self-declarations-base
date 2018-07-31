@@ -13,7 +13,7 @@ trait LoaderTrait
      * @param bool $newEntity
      * @return $this|static
      */
-    static public function load(array $attributes = [], $newEntity = true)
+    public static function load(array $attributes = [], $newEntity = true)
     {
         static $entity;
         $entity = ($newEntity) ? new static() : $entity ?: new static();
@@ -42,7 +42,7 @@ trait LoaderTrait
      * @param array $dataSets
      * @return array
      */
-    static public function loadMultiple(array $dataSets)
+    public static function loadMultiple(array $dataSets)
     {
         $loadMultiple = [];
 

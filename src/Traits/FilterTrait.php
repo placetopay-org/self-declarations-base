@@ -32,7 +32,7 @@ trait FilterTrait
     /**
      * @return string
      */
-    static public function getFilterSmartName()
+    public static function getFilterSmartName()
     {
         return self::$FILTER_SMART_NAME;
     }
@@ -142,7 +142,6 @@ trait FilterTrait
         if (!empty($value)) {
             self::setFilterToApply($filter, sprintf(Pattern::QUERY_LIKE, $value), $whereType, OperatorType::LIKE);
         }
-
     }
 
     /** @noinspection PhpUnusedPrivateMethodInspection */

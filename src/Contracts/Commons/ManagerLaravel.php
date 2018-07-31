@@ -208,8 +208,8 @@ abstract class ManagerLaravel implements RepositoryInterface, EventInterface
     {
         if (!is_null($entity)) {
             $this->entity = $entity;
-            return $this;
 
+            return $this;
         }
 
         return $this->entity;
@@ -248,7 +248,9 @@ abstract class ManagerLaravel implements RepositoryInterface, EventInterface
             return null;
         }
 
-        return !isset($attributes['id']) ? collect($this->entity()->loadMultiple($attributes)) : $this->entity()->load($attributes);
+        return !isset($attributes['id'])
+            ? collect($this->entity()->loadMultiple($attributes))
+            : $this->entity()->load($attributes);
     }
 
     /**

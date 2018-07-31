@@ -15,5 +15,5 @@ interface FilterBuilderInterface
      * @param array $filters
      * @return Builder
      */
-    static public function builder($query, array $filters);
+    public static function builder($query, array $filters);
 }

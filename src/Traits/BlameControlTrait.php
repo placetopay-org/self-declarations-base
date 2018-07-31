@@ -79,7 +79,7 @@ trait BlameControlTrait
     /**
      *
      */
-    static public function rebootBlameControlTrait()
+    public static function rebootBlameControlTrait()
     {
         // Un-register and reload previous events setup
         static::flushEventListeners();
@@ -142,7 +142,7 @@ trait BlameControlTrait
      * Enable blame to all columns
      * @return void
      */
-    final static public function enableBlame()
+    final public static function enableBlame()
     {
         static::enableCreatedBy();
         static::enableUpdatedBy();
@@ -153,7 +153,7 @@ trait BlameControlTrait
      * Enable save created by column
      * @return void
      */
-    final static public function enableCreatedBy()
+    final public static function enableCreatedBy()
     {
         static::$CREATED_BY = BlameColumn::CREATED_BY;
         static::rebootBlameControlTrait();
@@ -163,7 +163,7 @@ trait BlameControlTrait
      * Enable update updated by column
      * @return void
      */
-    final static public function enableUpdatedBy()
+    final public static function enableUpdatedBy()
     {
         static::$UPDATED_BY = BlameColumn::UPDATED_BY;
         static::rebootBlameControlTrait();
@@ -173,7 +173,7 @@ trait BlameControlTrait
      * Enable update deleted by column
      * @return void
      */
-    final static public function enableDeletedBy()
+    final public static function enableDeletedBy()
     {
         static::$DELETED_BY = BlameColumn::DELETED_BY;
         static::rebootBlameControlTrait();
@@ -183,7 +183,7 @@ trait BlameControlTrait
      * Disable blame to all columns
      * @return void
      */
-    final static public function disableBlame()
+    final public static function disableBlame()
     {
         static::disableCreatedBy();
         static::disableUpdatedBy();
@@ -195,7 +195,7 @@ trait BlameControlTrait
      * @param null $forever
      * @return void
      */
-    final static public function disableCreatedBy($forever = null)
+    final public static function disableCreatedBy($forever = null)
     {
         static::$CREATED_BY = null;
         static::rebootBlameControlTrait();
@@ -207,7 +207,7 @@ trait BlameControlTrait
      * @param null $forever
      * @return void
      */
-    final static public function disableUpdatedBy($forever = null)
+    final public static function disableUpdatedBy($forever = null)
     {
         static::$UPDATED_BY = null;
         static::rebootBlameControlTrait();
@@ -218,7 +218,7 @@ trait BlameControlTrait
      * Disable update deleted by column
      * @return void
      */
-    final static public function disableDeletedBy()
+    final public static function disableDeletedBy()
     {
         static::$DELETED_BY = null;
         static::rebootBlameControlTrait();
@@ -229,7 +229,7 @@ trait BlameControlTrait
      * @param string $guard
      * @return void
      */
-//    static public function setGuard($guard)
+//    public static function setGuard($guard)
 //    {
 //        static::$GUARD_NAME = $guard;
 //    }
@@ -239,7 +239,7 @@ trait BlameControlTrait
      * @param int $id
      * @return void
      */
-    final static public function setCurrentUserAuthenticated($id)
+    final public static function setCurrentUserAuthenticated($id)
     {
         static::$CURRENT_USER_AUTHENTICATED = $id;
     }
@@ -250,7 +250,7 @@ trait BlameControlTrait
      * @param string $model
      * @return int
      */
-    final static public function getCurrentUserAuthenticated($event, $model)
+    final public static function getCurrentUserAuthenticated($event, $model)
     {
         if (static::$CURRENT_USER_AUTHENTICATED) {
             return static::$CURRENT_USER_AUTHENTICATED;
