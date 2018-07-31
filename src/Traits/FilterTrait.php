@@ -21,6 +21,7 @@ trait FilterTrait
     static private $FILTER_BY_DEFAULT = [
         FilterType::TEXT,
         FilterType::EMAIL,
+        FilterType::NUMBER,
     ];
 
     /**
