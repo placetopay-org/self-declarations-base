@@ -12,7 +12,7 @@ use FreddieGar\Base\Traits\RequestLaravelTrait;
 use Illuminate\Http\Request;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Cache;
-use function Symfony\Component\HttpKernel\Tests\controller_func;
+use Illuminate\Support\Facades\Config;
 
 /**
  * Class ManagerLaravel
@@ -87,7 +87,7 @@ abstract class ManagerLaravel implements RepositoryInterface, EventInterface
 
         $tag = $inTag ? $inTag : $this->tag();
 
-        return env('APP_USE_CACHE', true) ? Cache::tags($tag)->rememberForever($key, $value) : $value();
+        return Config::get('app.use_cache', true) ? Cache::tags($tag)->rememberForever($key, $value) : $value();
     }
 
     /**
@@ -273,7 +273,8 @@ abstract class ManagerLaravel implements RepositoryInterface, EventInterface
 
     /**
      * @param array $items
-     * @return \Illuminate\Support\Collection
+     * @return Collection
+     * @throws Exception
      */
     public function createMany(array $items = [])
     {

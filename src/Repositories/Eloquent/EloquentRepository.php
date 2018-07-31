@@ -32,7 +32,8 @@ abstract class EloquentRepository implements RepositoryInterface
 
     /**
      * @param int $id
-     * @return int
+     * @return bool|null
+     * @throws \Exception
      */
     public function delete($id)
     {

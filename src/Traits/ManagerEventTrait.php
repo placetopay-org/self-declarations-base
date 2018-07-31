@@ -2,8 +2,8 @@
 
 namespace FreddieGar\Base\Traits;
 
-use FreddieGar\Base\Constants\CacheKey;
 use App\Entities\TranslationEntity;
+use FreddieGar\Base\Constants\CacheKey;
 use FreddieGar\Base\Contracts\Commons\EntityLaravel;
 
 /**
@@ -20,9 +20,8 @@ trait ManagerEventTrait
     public function created($entity)
     {
         self::cacheFlush(CacheKey::ALL);
-        if ($entity->dictionaryId()) {
-            self::cacheFlush($this->key($entity->dictionaryId(), $this->lang()), TranslationEntity::class);
-        }
+
+        $this->flushDictionaryId($entity);
         $this->flushSelectList();
         $this->cacheFlushRelated($entity);
     }
@@ -35,9 +34,8 @@ trait ManagerEventTrait
     {
         self::cacheFlush($entity->id());
         self::cacheFlush(CacheKey::ALL);
-        if ($entity->dictionaryId()) {
-            self::cacheFlush($this->key($entity->dictionaryId(), $this->lang()), TranslationEntity::class);
-        }
+
+        $this->flushDictionaryId($entity);
         $this->flushSelectList();
         $this->cacheFlushRelated($entity);
     }
@@ -50,11 +48,21 @@ trait ManagerEventTrait
     {
         self::cacheFlush($entity->id());
         self::cacheFlush(CacheKey::ALL);
-        if ($entity->dictionaryId()) {
-            self::cacheFlush($this->key($entity->dictionaryId(), $this->lang()), TranslationEntity::class);
-        }
+
+        $this->flushDictionaryId($entity);
         $this->flushSelectList();
         $this->cacheFlushRelated($entity);
+    }
+
+    /**
+     * @param EntityLaravel $entity
+     * @return void
+     */
+    protected function flushDictionaryId($entity)
+    {
+        if (method_exists($this, 'dictionaryId') && $entity->dictionaryId()) {
+            self::cacheFlush($this->key($entity->dictionaryId(), $this->lang()), TranslationEntity::class);
+        }
     }
 
     /**

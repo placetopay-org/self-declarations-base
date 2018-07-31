@@ -26,7 +26,7 @@
   },
   "scripts": {
     "phpcs": "phpcs --standard=PSR2 --ignore=src/Commands/create.php src/",
-    "phpstan": "phpstan analyse -l 0 src/",
+    "phpstan": "phpstan analyse -l 0 -c phpstan.neon src/",
     "phpunit": "phpunit --bootstrap vendor/autoload.php --testdox tests/",
     "test": [
       "@phpcs",

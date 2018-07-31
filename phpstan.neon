@@ -1,0 +1,7 @@
+parameters:
+    excludes_analyse:
+        - %currentWorkingDirectory%/src/Commands/create.php
+    ignoreErrors:
+        - '#Function trans not found.#'
+        - '#Class App\\Entities\\TranslationEntity not found.#'
+        - '#Access to an undefined property(\s*)FreddieGar\\Base\\Repositories\\Eloquent\\EloquentRepository::\$model.#'
