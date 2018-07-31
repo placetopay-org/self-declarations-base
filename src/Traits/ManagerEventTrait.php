@@ -22,8 +22,8 @@ trait ManagerEventTrait
         self::cacheFlush(CacheKey::ALL);
 
         $this->flushDictionaryId($entity);
-        $this->flushSelectList();
         $this->cacheFlushRelated($entity);
+        $this->flushSelectList();
     }
 
     /**
@@ -36,8 +36,8 @@ trait ManagerEventTrait
         self::cacheFlush(CacheKey::ALL);
 
         $this->flushDictionaryId($entity);
-        $this->flushSelectList();
         $this->cacheFlushRelated($entity);
+        $this->flushSelectList();
     }
 
     /**
@@ -50,8 +50,8 @@ trait ManagerEventTrait
         self::cacheFlush(CacheKey::ALL);
 
         $this->flushDictionaryId($entity);
-        $this->flushSelectList();
         $this->cacheFlushRelated($entity);
+        $this->flushSelectList();
     }
 
     /**
@@ -60,7 +60,7 @@ trait ManagerEventTrait
      */
     protected function flushDictionaryId($entity)
     {
-        if (method_exists($this, 'dictionaryId') && $entity->dictionaryId()) {
+        if ($entity->dictionaryId()) {
             self::cacheFlush($this->key($entity->dictionaryId(), $this->lang()), TranslationEntity::class);
         }
     }
