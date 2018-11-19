@@ -310,6 +310,7 @@ abstract class ManagerLaravel implements RepositoryInterface, EventInterface
     /**
      * @param int $id
      * @return int
+     * @throws Exception
      */
     public function delete($id)
     {
@@ -325,6 +326,7 @@ abstract class ManagerLaravel implements RepositoryInterface, EventInterface
     /**
      * @param array ...$ids
      * @return int
+     * @throws Exception
      */
     public function deleteMany(...$ids)
     {

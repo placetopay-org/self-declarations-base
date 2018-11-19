@@ -1,4 +1,4 @@
-<?php
+<?php /** @noinspection ALL */
 
 namespace FreddieGar\Base\Traits;
 
