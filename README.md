@@ -1,10 +1,10 @@
-# base
-Base repository to manage layer in Laravel
+# Base
+Base repository to manage layer in Laravel 5.5 to 5.7
 
-# To create files, on root from your project use
+## To create files, on root from your project use
 
 ```
-php freddiegar/base/src/Commands/create.php [NameModel] [aliasType] [columns,names?]
+php vendor/freddiegar/base/src/Commands/create.php [NameModel] [options] [columns,names?]
 ```
 
 --By Example
@@ -23,7 +23,9 @@ This create in your project next files:
 
 Also it will create folders if this not exists [Contracts,Entities,Managers,Models,Respositories]
 
-If you wanna to create only one file in specific, you can use next types alias:
+## Options
+
+If you wanna to create only one file in specific, you can use next options (alias):
 
 ```
 I        [interface]
@@ -43,6 +45,8 @@ w        [_show]
 a        [_actions]
 l        [_lang]%  
 ```
+
+### Options shortcuts
 
 All types that you can use are here, additional, this are shorcuts:
 
