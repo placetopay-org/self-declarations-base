@@ -2,10 +2,10 @@
 
 namespace FreddieGar\Base\Traits;
 
+use Carbon\Carbon;
 use FreddieGar\Base\Constants\FilterType;
 use FreddieGar\Base\Constants\OperatorType;
 use FreddieGar\Base\Constants\Pattern;
-use Carbon\Carbon;
 
 /**
  * Trait FilterTrait
@@ -169,7 +169,7 @@ trait FilterTrait
     {
         $value = static::requestFilter($filter['field']);
 
-        if (!empty($value)) {
+        if (!empty($value) && strtotime($value)) {
             $valueMinFormatted = Carbon::parse($value);
             $valueMaxFormatted = Carbon::parse($value)
                 ->hour(23)
@@ -191,17 +191,22 @@ trait FilterTrait
         $valueMin = static::requestFilter($filter['field'] . FilterType::BETWEEN_MIN_SUFFIX);
         $valueMax = static::requestFilter($filter['field'] . FilterType::BETWEEN_MAX_SUFFIX);
 
-        $valueMinFormatted = Carbon::parse($valueMin);
-        $valueMaxFormatted = Carbon::parse($valueMax)
-            ->hour(23)
-            ->minute(59)
-            ->second(59);
+        if (!empty($valueMin) && strtotime($valueMin)) {
+            $valueMinFormatted = Carbon::parse($valueMin);
+        }
 
-        if (!empty($valueMin) && !empty($valueMax) && $valueMinFormatted && $valueMaxFormatted) {
+        if (!empty($valueMax) && strtotime($valueMax)) {
+            $valueMaxFormatted = Carbon::parse($valueMax)
+                ->hour(23)
+                ->minute(59)
+                ->second(59);
+        }
+
+        if (!empty($valueMinFormatted) && !empty($valueMaxFormatted)) {
             self::doBetween($filter, $valueMinFormatted, $valueMaxFormatted, $whereType);
-        } elseif (!empty($valueMin) && $valueMinFormatted) {
+        } elseif (!empty($valueMinFormatted)) {
             self::setFilterToApply($filter, $valueMinFormatted, $whereType, OperatorType::MAJOR_EQUALS);
-        } elseif (!empty($valueMax) && $valueMaxFormatted) {
+        } elseif (!empty($valueMaxFormatted)) {
             self::setFilterToApply($filter, $valueMaxFormatted, $whereType, OperatorType::MINOR_EQUALS);
         }
 
