@@ -107,13 +107,6 @@ trait FilterTrait
      */
     private function applyFilter($filter, $whereType = 'where')
     {
-        static $appliedFilters = [];
-
-        if (isset($appliedFilters[$filter['field']])) {
-            return;
-        }
-
-        $appliedFilters[$filter['field']] = true;
         call_user_func([$this, sprintf(self::$FILTER_METHOD_PREFIX, ucfirst($filter['type']))], $filter, $whereType);
     }
 
