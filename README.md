@@ -7,10 +7,10 @@ Base repository to manage layer in Laravel 5.5 to 5.7
 php vendor/freddiegar/base/src/Commands/create.php [NameModel] [options] [columns,names?]
 ```
 
---By Example
+By Example
 
 ```
-php freddiegar/base/src/Commands/create.php User _ id,name,surname,email
+php vendor/freddiegar/base/src/Commands/create.php User _ id,name,surname,email
 ```
 
 This create in your project next files:
