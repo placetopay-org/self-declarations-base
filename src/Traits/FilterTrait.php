@@ -119,7 +119,7 @@ trait FilterTrait
     {
         $value = static::requestFilter($filter['field']);
 
-        if (isset($value)) { // Allow '', 0, null values in select
+        if (isset($value) && $value != '') {// Allowed 0, null values in select
             self::setFilterToApply($filter, $value, $whereType);
         }
     }
