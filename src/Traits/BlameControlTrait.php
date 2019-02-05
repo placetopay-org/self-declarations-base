@@ -18,43 +18,43 @@ trait BlameControlTrait
      * The name of the "created by" column.
      * @var string
      */
-    static private $CREATED_BY = BlameColumn::CREATED_BY;
+    private static $CREATED_BY = BlameColumn::CREATED_BY;
 
     /**
      * The name of the "updated by" column.
      * @var string
      */
-    static private $UPDATED_BY = BlameColumn::UPDATED_BY;
+    private static $UPDATED_BY = BlameColumn::UPDATED_BY;
 
     /**
      * The name of the "deleted by" column.
      * @var string
      */
-    static private $DELETED_BY = BlameColumn::DELETED_BY;
+    private static $DELETED_BY = BlameColumn::DELETED_BY;
 
     /**
      * By default is that user guard logged
      * @var string
      */
-    static private $GUARD_NAME = null;
+    private static $GUARD_NAME = null;
 
     /**
      * By default is that user id logged
      * @var string
      */
-    static private $CURRENT_USER_AUTHENTICATED = null;
+    private static $CURRENT_USER_AUTHENTICATED = null;
 
     /**
      * Indicate action forever
      * @var string
      */
-    static private $FOREVER = null;
+    private static $FOREVER = null;
 
     /**
      * The "booting" method of the model.
      * @return void
      */
-    static protected function bootBlameControlTrait()
+    protected static function bootBlameControlTrait()
     {
         foreach (static::blameEvents() as $event) {
             if ($event === Event::SAVED && !self::isForever()) {
@@ -89,7 +89,7 @@ trait BlameControlTrait
     /**
      * @return array
      */
-    final static protected function blameEvents()
+    final protected static function blameEvents()
     {
         return [
             Event::CREATING,
@@ -99,17 +99,17 @@ trait BlameControlTrait
         ];
     }
 
-    final static protected function setForever($forever)
+    final protected static function setForever($forever)
     {
         static::$FOREVER = $forever;
     }
 
-    final static protected function getForever()
+    final protected static function getForever()
     {
         return static::$FOREVER;
     }
 
-    final static protected function isForever()
+    final protected static function isForever()
     {
         return self::getForever() === true;
     }
@@ -118,7 +118,7 @@ trait BlameControlTrait
      * @param string $event
      * @return array|null
      */
-    final static protected function blameColumnsByEvent($event)
+    final protected static function blameColumnsByEvent($event)
     {
         $columnByEvent = [
             Event::CREATING => [

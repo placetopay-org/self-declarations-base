@@ -14,11 +14,11 @@ use FreddieGar\Base\Constants\Pattern;
  */
 trait FilterTrait
 {
-    static private $FILTER_METHOD_PREFIX = 'filterBy%s';
+    private static $FILTER_METHOD_PREFIX = 'filterBy%s';
 
-    static private $FILTER_SMART_NAME = 'q';
+    private static $FILTER_SMART_NAME = 'q';
 
-    static private $FILTER_BY_DEFAULT = [
+    private static $FILTER_BY_DEFAULT = [
         FilterType::TEXT,
         FilterType::EMAIL,
         FilterType::NUMBER,
