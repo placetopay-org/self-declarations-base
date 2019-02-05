@@ -33,29 +33,6 @@ if (!function_exists('getter')) {
     }
 }
 
-if (!function_exists('ff')) {
-    /**
-     * @param array ...$attributes
-     * @return mixed
-     */
-    function ff(...$attributes)
-    {
-        if (env('APP_DEBUG')) {
-            $log = '';
-            foreach ($attributes as $i => $attribute) {
-                $log .= print_r($attribute, true) . "\n";
-            }
-            $log .= (
-            env('APP_DEBUG_TRACE')
-                ? print_r(customizeTrace((new Exception())->getTrace(), env('APP_DEBUG_TRACE_DEEP', 1)), true)
-                : '');
-            Illuminate\Support\Facades\Log::info($log . "\n");
-        }
-
-        return $attributes[0];
-    }
-}
-
 if (!function_exists('filterArray')) {
     /**
      * @param $array
