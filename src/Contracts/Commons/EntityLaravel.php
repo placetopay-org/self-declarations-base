@@ -102,8 +102,8 @@ abstract class EntityLaravel implements BlameColumnInterface
     {
         $property = snake_case($name);
 
-        if (isset($arguments[0])) {
-            return self::__set($property, $arguments[0]);
+        if (count($arguments) > 0) {
+            return self::__set($property, ...$arguments);
         }
 
         return self::__get($property);
