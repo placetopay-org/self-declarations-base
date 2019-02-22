@@ -19,7 +19,6 @@ trait LoaderTrait
         return isset($data[0])
             ? static::loadMultiple($data)
             : static::loadOne($data);
-
     }
 
     /**

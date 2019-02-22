@@ -21,7 +21,7 @@ This create in your project next files:
 ./app/Models/User.php
 ./app/Repositories/Eloquent/EloquentUserRepository.php
 
-Also it will create folders if this not exists [Contracts,Entities,Managers,Models,Respositories]
+Also it will create folders if this not exists [Contracts,Entities,Managers,Models,Repositories]
 
 ## Options
 
