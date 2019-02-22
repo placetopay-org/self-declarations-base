@@ -2,6 +2,8 @@
 
 namespace FreddieGar\Base\Traits;
 
+use Illuminate\Support\Collection;
+
 /**
  * Trait LoaderTrait
  * @package FreddieGar\Base\Traits
@@ -9,10 +11,22 @@ namespace FreddieGar\Base\Traits;
 trait LoaderTrait
 {
     /**
-     * @param array $attributes
-     * @return $this|static
+     * @param array $data
+     * @return static
      */
-    public static function load(array $attributes = [])
+    public static function load(array $data = [])
+    {
+        return isset($data[0])
+            ? static::loadMultiple($data)
+            : static::loadOne($data);
+
+    }
+
+    /**
+     * @param array $attributes
+     * @return static
+     */
+    protected static function loadOne(array $attributes = [])
     {
         $entity = new static();
 
@@ -24,17 +38,17 @@ trait LoaderTrait
     }
 
     /**
-     * @param array $dataSets
-     * @return array
+     * @param array $data
+     * @return Collection
      */
-    public static function loadMultiple(array $dataSets)
+    protected static function loadMultiple(array $data): Collection
     {
         $loadMultiple = [];
 
-        foreach ($dataSets as $dataSet) {
+        foreach ($data as $dataSet) {
             $loadMultiple[] = static::load($dataSet);
         }
 
-        return $loadMultiple;
+        return collect($loadMultiple);
     }
 }

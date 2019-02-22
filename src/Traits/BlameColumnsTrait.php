@@ -17,10 +17,12 @@ trait BlameColumnsTrait
      */
     public function createdBy($createdBy = null)
     {
-        if (!is_null($createdBy)) {
+        if (func_num_args() > 0) {
             $this->{BlameColumn::CREATED_BY} = $createdBy;
+
             return $this;
         }
+
         return $this->{BlameColumn::CREATED_BY};
     }
 
@@ -30,10 +32,12 @@ trait BlameColumnsTrait
      */
     public function updatedBy($updatedBy = null)
     {
-        if (!is_null($updatedBy)) {
+        if (func_num_args() > 0) {
             $this->{BlameColumn::UPDATED_BY} = $updatedBy;
+
             return $this;
         }
+
         return $this->{BlameColumn::UPDATED_BY};
     }
 
@@ -43,10 +47,12 @@ trait BlameColumnsTrait
      */
     public function deletedBy($deletedBy = null)
     {
-        if (!is_null($deletedBy)) {
+        if (func_num_args() > 0) {
             $this->{BlameColumn::DELETED_BY} = $deletedBy;
+
             return $this;
         }
+
         return $this->{BlameColumn::DELETED_BY};
     }
 
@@ -56,10 +62,12 @@ trait BlameColumnsTrait
      */
     public function createdAt($createdAt = null)
     {
-        if (!is_null($createdAt)) {
+        if (func_num_args() > 0) {
             $this->{BlameColumn::CREATED_AT} = $createdAt;
+
             return $this;
         }
+
         return $this->{BlameColumn::CREATED_AT};
     }
 
@@ -69,10 +77,12 @@ trait BlameColumnsTrait
      */
     public function updatedAt($updatedAt = null)
     {
-        if (!is_null($updatedAt)) {
+        if (func_num_args() > 0) {
             $this->{BlameColumn::UPDATED_AT} = $updatedAt;
+
             return $this;
         }
+
         return $this->{BlameColumn::UPDATED_AT};
     }
 
@@ -82,10 +92,12 @@ trait BlameColumnsTrait
      */
     public function deletedAt($deletedAt = null)
     {
-        if (!is_null($deletedAt)) {
+        if (func_num_args() > 0) {
             $this->{BlameColumn::DELETED_AT} = $deletedAt;
+
             return $this;
         }
+
         return $this->{BlameColumn::DELETED_AT};
     }
 }
