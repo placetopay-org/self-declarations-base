@@ -10,38 +10,38 @@ namespace FreddieGar\Base\Contracts\Interfaces;
 interface BlameColumnInterface
 {
     /**
-     * @param int $created_by
+     * @param int $createdBy
      * @return string
      */
-    public function createdBy($created_by = null);
+    public function createdBy($createdBy = null);
 
     /**
-     * @param int $updated_by
+     * @param int $updatedBy
      * @return string
      */
-    public function updatedBy($updated_by = null);
+    public function updatedBy($updatedBy = null);
 
     /**
-     * @param int $deleted_by
+     * @param int $deletedBy
      * @return string
      */
-    public function deletedBy($deleted_by = null);
+    public function deletedBy($deletedBy = null);
 
     /**
-     * @param string $created_at
+     * @param string $createdAt
      * @return string
      */
-    public function createdAt($created_at = null);
+    public function createdAt($createdAt = null);
 
     /**
-     * @param string $updated_at
+     * @param string $updatedAt
      * @return string
      */
-    public function updatedAt($updated_at = null);
+    public function updatedAt($updatedAt = null);
 
     /**
-     * @param string $deleted_at
+     * @param string $deletedAt
      * @return string
      */
-    public function deletedAt($deleted_at = null);
+    public function deletedAt($deletedAt = null);
 }

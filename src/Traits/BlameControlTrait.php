@@ -225,16 +225,6 @@ trait BlameControlTrait
     }
 
     /**
-     * Set guard to use in blame
-     * @param string $guard
-     * @return void
-     */
-//    public static function setGuard($guard)
-//    {
-//        static::$GUARD_NAME = $guard;
-//    }
-
-    /**
      * Set user to use in blame columns
      * @param int $id
      * @return void
