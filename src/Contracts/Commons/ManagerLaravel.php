@@ -220,40 +220,13 @@ abstract class ManagerLaravel implements RepositoryInterface, EventInterface
     }
 
     /**
-     * Get entity dummy, it can use when need a response not null
-     * setting default data
-     * @param array $attributes
-     * @return $this|static
+     * @param array|null $attributes
+     * @return array|EntityLaravel|Collection|null
      */
-    public function dummy(array $attributes)
+    public function response(?array $attributes)
     {
-        //TODO: Use dummy attribute in load defined constant to do it
-        return $this->entity()->load(array_merge($attributes, ['dummy' => true]));
-    }
-
-    /**
-     * @param $method
-     * @param $parameters
-     * @return array|static
-     * @throws Exception
-     */
-    public function __call($method, $parameters)
-    {
-        throw new Exception("Method [$method] must be implemented in " . static::class);
-    }
-
-    /**
-     * @param array $attributes
-     * @return Collection|EntityLaravel
-     */
-    public function response($attributes = null)
-    {
-        if (is_null($attributes)) {
-            return null;
-        }
-
-        return !isset($attributes['id'])
-            ? collect($this->entity()->loadMultiple($attributes))
+        return is_null($attributes)
+            ? $attributes
             : $this->entity()->load($attributes);
     }
 
@@ -268,7 +241,7 @@ abstract class ManagerLaravel implements RepositoryInterface, EventInterface
             throw new Exception(trans('exceptions.model_not_saved'));
         }
 
-        $entity = $this->getById($_new['id']);
+        $entity = $this->getById($_new[$this->entity()->getKeyName()]);
 
         $this->created($entity);
 
@@ -362,5 +335,15 @@ abstract class ManagerLaravel implements RepositoryInterface, EventInterface
         return self::cache(CacheKey::ALL, function () use ($columns) {
             return $this->response($this->repository()->getAll($columns));
         });
+    }
+
+    /**
+     * @param string $method
+     * @param array $parameters
+     * @throws Exception
+     */
+    public function __call($method, $parameters)
+    {
+        throw new Exception("Method [$method] must be implemented in " . static::class);
     }
 }
