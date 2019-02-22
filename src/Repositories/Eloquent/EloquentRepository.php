@@ -41,21 +41,21 @@ abstract class EloquentRepository implements RepositoryInterface
     }
 
     /**
-     * @param array $columns
-     * @return array
-     */
-    public function getAll(array $columns = ['*'])
-    {
-        return $this->model->all($columns)->toArray();
-    }
-
-    /**
      * @param int $id
      * @return array
      */
     public function getById($id)
     {
         return $this->model->findOrFail($id)->toArray();
+    }
+
+    /**
+     * @param array $columns
+     * @return array
+     */
+    public function getAll(array $columns = ['*'])
+    {
+        return $this->model->all($columns)->toArray();
     }
 
     /**

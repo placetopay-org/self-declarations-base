@@ -156,35 +156,15 @@ abstract class ManagerLaravel implements RepositoryInterface, EventInterface
      */
     final protected function request(Request $request = null)
     {
-        if (!is_null($request)) {
+        if (func_num_args() > 0) {
             $this->request = $request;
+
             return $this;
         }
 
         return $this->request;
     }
 
-    /**
-     * @param null $query
-     * @return $this|\Illuminate\Database\Eloquent\Builder
-     */
-    final public function query($query = null)
-    {
-        if (!is_null($query)) {
-            $this->query = $query;
-            return $this;
-        }
-
-        return (!is_null($this->query)) ? $this->query : $this->repository()->query();
-    }
-
-    /**
-     * @return EntityLaravel|Collection
-     */
-    final public function where()
-    {
-        return $this->response($this->query()->where(func_get_arg(0))->get()->toArray());
-    }
 
     /**
      * @param mixed $repository
@@ -192,8 +172,9 @@ abstract class ManagerLaravel implements RepositoryInterface, EventInterface
      */
     protected function repository($repository = null)
     {
-        if (!is_null($repository)) {
+        if (func_num_args() > 0) {
             $this->repository = $repository;
+
             return $this;
         }
 
@@ -206,13 +187,36 @@ abstract class ManagerLaravel implements RepositoryInterface, EventInterface
      */
     protected function entity($entity = null)
     {
-        if (!is_null($entity)) {
+        if (func_num_args() > 0) {
             $this->entity = $entity;
 
             return $this;
         }
 
         return $this->entity;
+    }
+
+    /**
+     * @param null $query
+     * @return $this|\Illuminate\Database\Eloquent\Builder
+     */
+    final public function query($query = null)
+    {
+        if (func_num_args() > 0) {
+            $this->query = $query;
+
+            return $this;
+        }
+
+        return $this->query ?? $this->repository()->query();
+    }
+
+    /**
+     * @return EntityLaravel|Collection
+     */
+    final public function where()
+    {
+        return $this->response($this->query()->where(func_get_arg(0))->get()->toArray());
     }
 
     /**
@@ -301,7 +305,6 @@ abstract class ManagerLaravel implements RepositoryInterface, EventInterface
             throw new Exception(trans(('exceptions.model_not_saved')));
         }
 
-        // Need all values to clean cache
         $this->updated($_old);
 
         return $this->getById($id);
@@ -314,7 +317,7 @@ abstract class ManagerLaravel implements RepositoryInterface, EventInterface
      */
     public function delete($id)
     {
-        if (is_null($id)) {
+        if (!$id) {
             return 0;
         }
 
@@ -340,17 +343,6 @@ abstract class ManagerLaravel implements RepositoryInterface, EventInterface
     }
 
     /**
-     * @param array $columns
-     * @return Collection
-     */
-    public function getAll(array $columns = ['*'])
-    {
-        return self::cache(CacheKey::ALL, function () use ($columns) {
-            return $this->response($this->repository()->getAll($columns));
-        });
-    }
-
-    /**
      * @param int $id
      * @return mixed
      */
@@ -358,6 +350,17 @@ abstract class ManagerLaravel implements RepositoryInterface, EventInterface
     {
         return self::cache($id, function () use ($id) {
             return $this->response($this->repository()->getById($id));
+        });
+    }
+
+    /**
+     * @param array $columns
+     * @return Collection
+     */
+    public function getAll(array $columns = ['*'])
+    {
+        return self::cache(CacheKey::ALL, function () use ($columns) {
+            return $this->response($this->repository()->getAll($columns));
         });
     }
 }
