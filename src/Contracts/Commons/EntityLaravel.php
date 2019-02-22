@@ -5,7 +5,7 @@ namespace FreddieGar\Base\Contracts\Commons;
 use FreddieGar\Base\Contracts\Interfaces\BlameColumnInterface;
 use FreddieGar\Base\Traits\BlameColumnsTrait;
 use FreddieGar\Base\Traits\DirTyTrait;
-use FreddieGar\Base\Traits\LoaderTrait;
+use Illuminate\Support\Collection;
 
 /**
  * Class Entity
@@ -18,29 +18,31 @@ use FreddieGar\Base\Traits\LoaderTrait;
 abstract class EntityLaravel implements BlameColumnInterface
 {
     use BlameColumnsTrait;
-    use LoaderTrait;
     use DirtyTrait;
 
     /**
-     * Properties load in entity
+     * Properties available load in entity
+     *
      * @return array
      */
-    abstract protected function fields();
+    abstract protected function fields(): array;
 
     /**
      * Get column name primary key
      *
      * @return string
      */
-    public function getKeyName()
+    public static function getKeyName(): string
     {
         return 'id';
     }
 
     /**
+     * Have information related
+     *
      * @return bool
      */
-    public function haveInformationRelated()
+    public function haveInformationRelated(): bool
     {
         return false;
     }
@@ -59,6 +61,47 @@ abstract class EntityLaravel implements BlameColumnInterface
         }
 
         return $toArray;
+    }
+
+    /**
+     * @param array $data
+     * @return static|Collection
+     */
+    public static function load(array $data)
+    {
+        return !empty($data) && !isset($data[0])
+            ? static::loadOne($data)
+            : static::loadMultiple($data);
+    }
+
+    /**
+     * @param array $attributes
+     * @return EntityLaravel
+     */
+    protected static function loadOne(array $attributes = []): self
+    {
+        $entity = new static();
+
+        foreach ($attributes as $attribute => $value) {
+            $entity->{$attribute} = $value;
+        }
+
+        return $entity;
+    }
+
+    /**
+     * @param array $data
+     * @return Collection
+     */
+    protected static function loadMultiple(array $data): Collection
+    {
+        $loadMultiple = [];
+
+        foreach ($data as $dataSet) {
+            $loadMultiple[] = static::load($dataSet);
+        }
+
+        return collect($loadMultiple);
     }
 
     /**

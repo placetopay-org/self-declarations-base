@@ -170,7 +170,7 @@ abstract class ManagerLaravel implements RepositoryInterface, EventInterface
      * @param mixed $repository
      * @return $this|EloquentRepository
      */
-    protected function repository($repository = null)
+    final protected function repository($repository = null)
     {
         if (func_num_args() > 0) {
             $this->repository = $repository;
@@ -185,7 +185,7 @@ abstract class ManagerLaravel implements RepositoryInterface, EventInterface
      * @param null $entity
      * @return $this|EntityLaravel
      */
-    protected function entity($entity = null)
+    final protected function entity($entity = null)
     {
         if (func_num_args() > 0) {
             $this->entity = $entity;
@@ -225,9 +225,9 @@ abstract class ManagerLaravel implements RepositoryInterface, EventInterface
      */
     public function response(?array $attributes)
     {
-        return is_null($attributes)
-            ? $attributes
-            : $this->entity()->load($attributes);
+        return !is_null($attributes)
+            ? $this->entity()->load($attributes)
+            : $attributes;
     }
 
     /**

@@ -290,7 +290,7 @@ class {$setup['entity']['name']} extends EntityLaravel
     /**
      * @inheritdoc
      */
-    protected function fields()
+    protected function fields(): array
     {
         return [
 {$entityFields}
