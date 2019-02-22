@@ -20,8 +20,7 @@ trait ToArrayTrait
 
         foreach ($properties as $property) {
             if (isset($this->{$property})) {
-                $getter = getter($property);
-                $toArray[$property] = method_exists($this, $getter) ? $this->{$getter}() : $this->{$property};
+                $toArray[$property] = $this->{$property};
             }
         }
 
