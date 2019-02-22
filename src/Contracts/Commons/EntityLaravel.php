@@ -41,15 +41,6 @@ abstract class EntityLaravel implements BlameColumnInterface
     }
 
     /**
-     * This fields are append to entity
-     * return array
-     */
-    protected function appends()
-    {
-        return [];
-    }
-
-    /**
      * This fields are exclude from toArray method
      * return array
      */
@@ -81,6 +72,7 @@ abstract class EntityLaravel implements BlameColumnInterface
     public function __set($name, $value)
     {
         $this->{$name} = $value;
+
         return $this;
     }
 
@@ -90,7 +82,7 @@ abstract class EntityLaravel implements BlameColumnInterface
      */
     public function __get($name)
     {
-        return isset($this->{$name}) ? $this->{$name} : null;
+        return $this->{$name} ?? null;
     }
 
     /**
