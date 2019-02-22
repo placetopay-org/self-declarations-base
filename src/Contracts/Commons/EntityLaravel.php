@@ -2,19 +2,16 @@
 
 namespace FreddieGar\Base\Contracts\Commons;
 
-use FreddieGar\Base\Constants\BlameColumn;
 use FreddieGar\Base\Contracts\Interfaces\BlameColumnInterface;
 use FreddieGar\Base\Traits\BlameColumnsTrait;
 use FreddieGar\Base\Traits\DirTyTrait;
 use FreddieGar\Base\Traits\LoaderTrait;
-use FreddieGar\Base\Traits\ToArrayTrait;
 
 /**
  * Class Entity
  *
  * @method $this|int id($id = null)
  * @method $this|int dictionaryId($dictionaryId = null)
- * @method $this|bool dummy()
  *
  * @package FreddieGar\Base\Contracts\Commons
  */
@@ -22,7 +19,6 @@ abstract class EntityLaravel implements BlameColumnInterface
 {
     use BlameColumnsTrait;
     use LoaderTrait;
-    use ToArrayTrait;
     use DirtyTrait;
 
     /**
@@ -32,28 +28,13 @@ abstract class EntityLaravel implements BlameColumnInterface
     abstract protected function fields();
 
     /**
-     * This fields are exclude from toArray method
-     * return array
+     * Get column name primary key
+     *
+     * @return string
      */
-    protected function hidden()
+    public function getKeyName()
     {
-        return [];
-    }
-
-    /**
-     * This fields are exclude from toArray method
-     * return array
-     */
-    protected function blames()
-    {
-        return [
-            BlameColumn::CREATED_BY,
-            BlameColumn::UPDATED_BY,
-            BlameColumn::DELETED_BY,
-            BlameColumn::CREATED_AT,
-            BlameColumn::UPDATED_AT,
-            BlameColumn::DELETED_AT,
-        ];
+        return 'id';
     }
 
     /**
@@ -62,6 +43,22 @@ abstract class EntityLaravel implements BlameColumnInterface
     public function haveInformationRelated()
     {
         return false;
+    }
+
+    /**
+     * @return array
+     */
+    public function toArray(): array
+    {
+        $toArray = [];
+
+        foreach (static::fields() as $property) {
+            if (isset($this->{$property})) {
+                $toArray[$property] = $this->{$property};
+            }
+        }
+
+        return $toArray;
     }
 
     /**
