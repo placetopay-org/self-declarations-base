@@ -54,8 +54,8 @@ abstract class EntityLaravel implements BlameColumnInterface
     {
         $toArray = [];
 
-        foreach (static::fields() as $property) {
-            if (isset($this->{$property})) {
+        foreach ($this->fields() as $property) {
+            if (property_exists($this, $property)) {
                 $toArray[$property] = $this->{$property};
             }
         }
