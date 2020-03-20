@@ -5,12 +5,6 @@
   "require": {
     "ext-json": "*",
     "php": ">=7.1",
-    "illuminate/support": "5.5.*|5.6.*|5.7.*|5.8.*|^6.0|^7.0",
-    "illuminate/http": "5.5.*|5.6.*|5.7.*|5.8.*|6.0|^7.0",
-    "illuminate/cache": "5.5.*|5.6.*|5.7.*|5.8.*|^6.0|^7.0",
-    "illuminate/database": "5.5.*|5.6.*|5.7.*|5.8.*|^6.0|^7.0",
-    "illuminate/translation": "5.5.*|5.6.*|5.7.*|5.8.*|^6.0|^7.0",
-    "illuminate/validation": "5.5.*|5.6.*|5.7.*|5.8.*|^6.0|^7.0"
   },
   "require-dev": {
     "phpstan/phpstan": "~0.9",
