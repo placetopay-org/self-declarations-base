@@ -321,9 +321,7 @@ abstract class ManagerLaravel implements RepositoryInterface, EventInterface
      */
     public function getById($id)
     {
-        return self::cache($id, function () use ($id) {
-            return $this->response($this->repository()->getById($id));
-        });
+        return $this->response($this->repository()->getById($id));
     }
 
     /**
@@ -332,9 +330,7 @@ abstract class ManagerLaravel implements RepositoryInterface, EventInterface
      */
     public function getAll(array $columns = ['*'])
     {
-        return self::cache(CacheKey::ALL, function () use ($columns) {
-            return $this->response($this->repository()->getAll($columns));
-        });
+        return $this->response($this->repository()->getAll($columns));
     }
 
     /**
