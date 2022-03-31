@@ -1,5 +1,5 @@
 {
-  "name": "freddiegar/base",
+  "name": "placetopay/self-declarations-base",
   "description": "Manage layers in Laravel",
   "type": "library",
   "require": {
